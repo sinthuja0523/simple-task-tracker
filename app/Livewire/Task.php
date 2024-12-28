@@ -88,6 +88,10 @@ class Task extends Component
     {
         // Hide update and cancel buttons
         $this->edit = false;
+
+        // Reset input fields and public values
+        $this->dispatch('clear-inputs');
+        $this->clearValues();
     }
 
     public function deleteTask($id) {
