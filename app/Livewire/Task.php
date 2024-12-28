@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Task as TaskModel;
 use Livewire\Component;
+use Auth;
 
 class Task extends Component
 {
@@ -19,6 +20,7 @@ class Task extends Component
 
         // storing in DB
         $task = TaskModel::create([
+            'user_id'=> Auth::user()->id,
             'title' => $validated_data['title'],
             'description' => $validated_data['desc'],
         ]);
@@ -95,7 +97,7 @@ class Task extends Component
 
     public function render()
     {
-        $tasks = TaskModel::all();
+        $tasks = TaskModel::where('user_id',Auth::user()->id)->get();
         $showEdit = $this->edit;
         return view('livewire.task', compact('tasks', 'showEdit'));
     }
