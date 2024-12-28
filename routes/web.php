@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// AJAX - Task Details
 Route::get('/task/{id}',[TaskController::class,'getTask']);
 
 require __DIR__.'/auth.php';

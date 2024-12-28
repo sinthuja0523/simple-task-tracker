@@ -8,6 +8,6 @@ use Illuminate\Http\Request;
 class TaskController extends Controller
 {
     public function getTask($id){
-        return $task = Task::where('id',$id)->get()->toJson();
+        return Task::where('id',$id)->get()->toJson();
     }
 }

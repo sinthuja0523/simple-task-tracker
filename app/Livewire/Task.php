@@ -11,11 +11,6 @@ class Task extends Component
 
     public function storeTask()
     {
-        \Log::info([
-            '$title' => $this->title,
-            '$desc' => $this->desc,
-        ]);
-
         // Validation
         $validated_data = $this->validate([
             'title' => 'required',
@@ -28,7 +23,7 @@ class Task extends Component
             'description' => $validated_data['desc'],
         ]);
 
-        // Reset input fields
+        // Reset input fields and public values
         $this->dispatch('clear-inputs');
         $this->clearValues();
 
@@ -51,7 +46,10 @@ class Task extends Component
 
         $this->title = $task->title;
         $this->desc = $task->description;
+
+        // Show update button
         $this->edit = true;
+
         $this->task_id = $id;
     }
 
@@ -63,6 +61,7 @@ class Task extends Component
             'desc' => 'nullable'
         ]);
 
+        // Updating
         $task = TaskModel::find($this->task_id);
         $task->update([
             'title' => $validated_data['title'],
@@ -85,11 +84,11 @@ class Task extends Component
 
     public function cancelTask()
     {
+        // Hide update and cancel buttons
         $this->edit = false;
     }
 
     public function deleteTask($id) {
-        \Log::info("Deleting task with ID: $id");
         $task = TaskModel::find($id);
         $task->delete();
     }
@@ -97,7 +96,6 @@ class Task extends Component
     public function render()
     {
         $tasks = TaskModel::all();
-        \Log::info('Rendering tasks...');
         $showEdit = $this->edit;
         return view('livewire.task', compact('tasks', 'showEdit'));
     }

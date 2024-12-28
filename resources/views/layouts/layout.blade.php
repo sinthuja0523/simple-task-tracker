@@ -66,6 +66,8 @@
 
     <script>
         $(document).ready(function() {
+
+            // AJAX request when Edit button is clicked
             $(document).on('click', '.btn-light[data-id]', function() {
                 const task_id = $(this).data('id');
                 console.log(task_id);
